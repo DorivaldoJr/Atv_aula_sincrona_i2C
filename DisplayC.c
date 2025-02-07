@@ -125,7 +125,7 @@ void gpio_irq_handler(uint gpio, uint32_t events){
             ssd1306_draw_string(&ssd, estado ? "ON" : "OFF", 85, 10); // Escreve "ON" ou "OFF para o estado do led
             ssd1306_send_data(&ssd); // Envia os dados para o display
           
-        printf("Botao A pressionado! Estado do led = %d.\n", estado);// mensagem via serial
+        printf("Botao A pressionado! Estado do led verde = %d.\n", estado);// mensagem via serial
      last_time_A = current_time;
      
     }
@@ -140,7 +140,7 @@ void gpio_irq_handler(uint gpio, uint32_t events){
             ssd1306_draw_string(&ssd, estado2 ? "ON" : "OFF", 85, 20); // Escreve "ON" ou "OFF para o estado do led
             ssd1306_send_data(&ssd); // Envia os dados para o display
 
-        printf("Botao B pressionado! Estado do led = %d.\n", estado2);// mensagem via serial
+        printf("Botao B pressionado! Estado do led azul = %d.\n", estado2);// mensagem via serial
       last_time_B = current_time;
     }
   }
@@ -210,6 +210,7 @@ int main()
         if (isupper(serial)) {
             printf("Digitou: %c.\n", serial);
             ssd1306_draw_char(&ssd, serial, 10, 20);
+        
         } else if (islower(serial)) {
             printf("Recebido: %c.\n", serial);
             ssd1306_draw_char_min(&ssd, serial, 10, 20);
@@ -218,7 +219,19 @@ int main()
         // Atualiza o display
         ssd1306_send_data(&ssd);
     }
- 
     
+    switch (serial){
+      case '0': atualiza_display(0,pio0,0); ssd1306_fill(&ssd, 0); ssd1306_draw_char(&ssd, serial, 10, 20);ssd1306_send_data(&ssd); break;
+      case '1': atualiza_display(1,pio0,0); ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20);ssd1306_send_data(&ssd);break;
+      case '2': atualiza_display(2,pio0,0); ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20);ssd1306_send_data(&ssd);break;
+      case '3': atualiza_display(3,pio0,0); ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20);ssd1306_send_data(&ssd);break;
+      case '4': atualiza_display(4,pio0,0); ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20); ssd1306_send_data(&ssd);break;
+      case '5': atualiza_display(5,pio0,0);ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20); ssd1306_send_data(&ssd);break;
+      case '6': atualiza_display(6,pio0,0);ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20); ssd1306_send_data(&ssd);break;
+      case '7': atualiza_display(7,pio0,0);ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20); ssd1306_send_data(&ssd);break;
+      case '8': atualiza_display(8,pio0,0);ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20); ssd1306_send_data(&ssd);break;
+      case '9': atualiza_display(9,pio0,0);ssd1306_fill(&ssd, 0);ssd1306_draw_char(&ssd, serial, 10, 20); ssd1306_send_data(&ssd);break;
+      
+    }
   }
 }
