@@ -196,7 +196,7 @@ void ssd1306_draw_string(ssd1306_t *ssd, const char *str, uint8_t x, uint8_t y)
 }
 
 // para letras minusculas
-void sdd1360_draw_char_min(ssd1306_t *ssd, char c, uint8_t x, uint8_t y)
+void ssd1306_draw_char_min(ssd1306_t *ssd, char c, uint8_t x, uint8_t y)
 {
     uint16_t index = 0;
     if (c >= 'a' && c <= 'z') // Se for minúscula
@@ -212,4 +212,25 @@ void sdd1360_draw_char_min(ssd1306_t *ssd, char c, uint8_t x, uint8_t y)
             ssd1306_pixel(ssd, x + i, y + (7 - j), line & (1 << j));
         }
     }
+}
+
+// Função para desenhar uma string de caracteres minúsculos
+void ssd1306_draw_string_min(ssd1306_t *ssd, const char *str, uint8_t x, uint8_t y)
+{
+  while (*str)
+  {
+    ssd1306_draw_char_min(ssd, *str++, x, y);
+    x += 6; // Ajuste para espaçamento entre caracteres (5x7 fontes)
+    
+    if (x + 6 >= ssd->width)
+    {
+      x = 0;
+      y += 8; // Pula para a próxima linha
+    }
+    
+    if (y + 8 >= ssd->height)
+    {
+      break; // Evita ultrapassar os limites do display
+    }
+  }
 }
